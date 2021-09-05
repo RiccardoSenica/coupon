@@ -1,24 +1,32 @@
-# Lumen PHP Framework
+# Installation
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+Requirements:
+- PHP >= 7.3
+- MySQL
+- Composer
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+Installation (Mac):
+- brew install php
+- brew install mysql
+- curl -sS https://getcomposer.org/installer | php
+- mv compose.phar /usr/local/bin/composer
+- chmod +x /usr/local/bin/composer
 
-## Official Documentation
+Create a db and a user with write privileges:
+- mysql -uroot
+- create database coupon;
+- create user ‘coupon_user’ identified with mysql_native_password by ‘password’;
+- grant all privileges on coupon.* to ‘coupon_user’;
+- quit;
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+Prepare project (run in project root folder):
+- [add the variables to .env]
+- composer install
+- php artisan migrate:fresh
 
-## Contributing
+Launch project (run in project root folder, different terminals):
+- php -S localhost:8000 public/index.php
+- php artisan queue:work —daemon
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Swagger:
+- It is located at /api/documentation
