@@ -1,0 +1,159 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Example API",
+        "contact": {
+            "name": "Support Team",
+            "email": "support@example.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/get-coupon": {
+            "get": {
+                "tags": [
+                    "getCoupon"
+                ],
+                "summary": "Retrieve a coupon code for the user, based on the selected brand, if available.",
+                "operationId": "/get-coupon",
+                "parameters": [
+                    {
+                        "name": "brand_id",
+                        "in": "query",
+                        "description": "ID of the brand for which the coupon is requested.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns the coupon code"
+                    },
+                    "401": {
+                        "description": "Error: Not authenticated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Token expired."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Error: Not authorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/generate-coupons": {
+            "get": {
+                "tags": [
+                    "generateCoupons"
+                ],
+                "summary": "Generates coupon codes for a brand.",
+                "operationId": "/generate-coupons",
+                "parameters": [
+                    {
+                        "name": "quantity",
+                        "in": "query",
+                        "description": "Quantity of coupons to be generated.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "prefix",
+                        "in": "query",
+                        "description": "Prefix to be used in the coupon codes.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Coupon code(s) generation job sent."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error: Not authenticated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Token expired."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Error: Not authorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        }
+    }
+}
