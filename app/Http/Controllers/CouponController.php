@@ -32,7 +32,7 @@ class CouponController extends Controller
      *     path="/get-coupon",
      *     operationId="/get-coupon",
      *     tags={"getCoupon"},
-     *     security={ {"bearer": {} }},
+     *     security={ {"bearer_token": {} }},
      *     @OA\Parameter(
      *         name="brand_id",
      *         in="query",
@@ -43,6 +43,16 @@ class CouponController extends Controller
      *     @OA\Response(
      *         response="200",
      *         description="Returns the coupon code",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(
+     *                     example={
+     *                         "data": {"code": "d4r6o9sd46i.5i4is57u3"}
+     *                     }
+     *                 )
+     *             )
+     *         }
      *     ),
      *     @OA\Response(
      *         response="401",
@@ -102,11 +112,11 @@ class CouponController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      *
-     * @OA\Get(
+     * @OA\Post(
      *     path="/generate-coupons",
      *     operationId="/generate-coupons",
      *     tags={"generateCoupons"},
-     *     security={ {"bearer": {} }},
+     *     security={ {"bearer_token": {} }},
      *     @OA\Parameter(
      *         name="quantity",
      *         in="query",
@@ -118,11 +128,11 @@ class CouponController extends Controller
      *         name="prefix",
      *         in="query",
      *         description="Prefix to be used in the coupon codes.",
-     *         required=true,
+     *         required=false,
      *         @OA\Schema(type="string")
      *     ),
      *     @OA\Response(
-     *         response="200",
+     *         response="201",
      *         description="Success.",
      *         @OA\JsonContent(
      *              @OA\Property(property="message", type="string", example="Coupon code(s) generation job sent.")
@@ -164,6 +174,6 @@ class CouponController extends Controller
 
         return response()->json([
             'message' => 'Coupon code(s) generation job sent.'
-        ], 200);
+        ], 201);
     }
 }
